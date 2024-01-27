@@ -1,0 +1,26 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.relative {
+    position: relative;
+    /* border: 1px solid red; */
+  }
+  
+  .left-2 {
+    left: 28rem;
+  }
+  
+  .bottom-2 {
+    bottom: 4.7rem;
+  }
+  
+  .cursor-pointer {
+    cursor: pointer;
+  }
+
+  .demo {
+    font-size: 15px;
+  }

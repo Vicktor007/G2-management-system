@@ -1,0 +1,17 @@
+.f-column{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .animate-left {
+    animation: left 0.5s ease-in-out;
+  }
+  .container-about {
+    height: 100vh;
+    margin: 0 auto;
+  }
+
+  .text-font {
+    font-size: 15px;
+  }

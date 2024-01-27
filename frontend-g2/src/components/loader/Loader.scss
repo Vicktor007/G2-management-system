@@ -1,0 +1,47 @@
+/* Loading */
+.wrapper {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 9;
+}
+
+.loader {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+ 
+}
+
+.loader-img {
+  width: 100px;
+}
+
+
+
+@keyframes spin {
+  to {transform: rotate(360deg);}
+}
+
+.loader-container {
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  z-index: 999;
+  .loaderDiv {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+  
+    border-top: 8px solid rgba(255, 255, 255, 1);
+    border-left: 8px solid rgba(255, 255, 255, 1);
+    border-right: 8px solid rgba(255, 255, 255, 0);
+  
+    animation: spin 0.575s infinite linear;
+  }
+}
