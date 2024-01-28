@@ -13,6 +13,8 @@ const initialState = {
     totalStoreValue: 0,
     totalAmountOwed: 0,
     totalOwingCustomers: 0,
+    studentsInTraining: 0,
+    pendingLicenses : 0 || "",
     category: [],
 };
 
@@ -177,6 +179,36 @@ export const updateACustomerDetails = createAsyncThunk(
         const uniqueCategory = [...new Set(array)];
         state.category = uniqueCategory;
       },
+
+      CALC_CUSTOMERS_IN_TRAINING(state, action) {
+        const customers = action.payload;
+        let count = 0;
+        if(Array.isArray(customers)) {
+          customers.forEach((item) => {
+           let {date_of_completion} = item;
+
+           date_of_completion = new Date(date_of_completion);
+           const today = new Date();
+           if(date_of_completion > today) {
+            count += 1;
+           }
+          });
+        }
+        state.studentsInTraining = count;
+      },
+      CALC_CUSTOMERS_WITH_PENDING_LICENSES(state, action) {
+        const customers = action.payload;
+        let count = 0;
+        if(Array.isArray(customers)) {
+          customers.forEach((item) => {
+           let {production_date} = item;
+           if(production_date === "") {
+            count += 1;
+           }
+          });
+        }
+        state.pendingLicenses = count;
+      }
     },
     
     extraReducers: (builder) => {
@@ -263,7 +295,7 @@ export const updateACustomerDetails = createAsyncThunk(
     
   });
 
-  export const {CALC_CATEGORY, CALC_STORE_VALUE, CALC_AMOUNT_OWED, CALC_OWING_CUSTOMERS} = customerSlice.actions
+  export const {CALC_CATEGORY,CALC_CUSTOMERS_WITH_PENDING_LICENSES, CALC_STORE_VALUE, CALC_AMOUNT_OWED, CALC_OWING_CUSTOMERS, CALC_CUSTOMERS_IN_TRAINING} = customerSlice.actions
 
   export const selectIsLoading = (state) => state.customer.isLoading;
   export const selectCustomer = (state) => state.customer.customer;
@@ -271,6 +303,10 @@ export const updateACustomerDetails = createAsyncThunk(
   export const selectTotalStoreValue = (state) => state.customer.totalStoreValue;
   export const selectTotalAmountOwed = (state) => state.customer.totalAmountOwed;
   export const selectTotalOwingCustomers = (state) => state.customer.totalOwingCustomers;
+  export const selectStudentsInTraining = (state) => state.customer.studentsInTraining;
+  export const selectPendingLicenses = (state) => state.customer.pendingLicenses 
+
+
 
   export default customerSlice.reducer;
 

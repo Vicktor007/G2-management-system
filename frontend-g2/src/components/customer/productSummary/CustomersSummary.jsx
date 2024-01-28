@@ -7,8 +7,12 @@ import { LuBadgeX } from "react-icons/lu";
 import InfoBox from "../../infoBox/InfoBox";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { MdAddShoppingCart } from "react-icons/md";
-import { CALC_AMOUNT_OWED, CALC_CATEGORY, CALC_OWING_CUSTOMERS, CALC_STORE_VALUE, selectCategory, selectTotalAmountOwed, selectTotalOwingCustomers, selectTotalStoreValue } from "../../../redux/features/customer/customerSlice";
+import { RiPassPendingLine } from "react-icons/ri";
+import { FaHandHoldingDollar } from "react-icons/fa6";
+import { TbUsersGroup } from "react-icons/tb";
+import { MdOutlineGroupRemove } from "react-icons/md";
+import { MdAddShoppingCart, MdPendingActions } from "react-icons/md";
+import { CALC_AMOUNT_OWED, CALC_CATEGORY, CALC_CUSTOMERS_IN_TRAINING, CALC_CUSTOMERS_WITH_PENDING_LICENSES, CALC_OWING_CUSTOMERS, CALC_STORE_VALUE, selectCategory, selectPendingLicenses, selectStudentsInTraining, selectTotalAmountOwed, selectTotalOwingCustomers, selectTotalStoreValue } from "../../../redux/features/customer/customerSlice";
 
 // Icons
 const earningIcon = <AiFillDollarCircle size={40} color="#fff" />;
@@ -16,6 +20,11 @@ const productIcon = <BsCart4 size={40} color="#fff" />;
 const categoryIcon = <BiCategory size={40} color="#fff" />;
 const outOfStockIcon = <BsCartX size={40} color="#fff" />;
 const expiredProductsIcon = <LuBadgeX size={40} color="#fff" /> 
+const pending = <RiPassPendingLine size={40} color="#fff"/>
+const owed = <FaHandHoldingDollar size={40} color="#fff"/>
+const trainees = <TbUsersGroup size={40} color="#fff"/>;
+const owingCustomers = <MdOutlineGroupRemove size={40} color="#fff"/>
+
 
 // Format Amount
 export const formatNumbers = (x) => {
@@ -28,6 +37,8 @@ const CustomersSummary = ({ customers }) => {
   const totalStoreValue = useSelector(selectTotalStoreValue);
   const totalOwingCustomers = useSelector(selectTotalOwingCustomers);
   const totalAmountOwed = useSelector(selectTotalAmountOwed);
+  const customersInTraining = useSelector(selectStudentsInTraining);
+  const pendingLicenses = useSelector(selectPendingLicenses);
 
 
   useEffect(() => {
@@ -35,6 +46,8 @@ const CustomersSummary = ({ customers }) => {
     dispatch(CALC_STORE_VALUE(customers));
     dispatch(CALC_AMOUNT_OWED(customers));
     dispatch(CALC_OWING_CUSTOMERS(customers));
+    dispatch(CALC_CUSTOMERS_IN_TRAINING(customers));
+    dispatch(CALC_CUSTOMERS_WITH_PENDING_LICENSES(customers));
   }, [dispatch, customers]);
 
   return (
@@ -42,7 +55,7 @@ const CustomersSummary = ({ customers }) => {
       <h3 className="--mt">Inventory Stats</h3>
       <div className="info-summary">
         <InfoBox
-          icon={productIcon}
+          icon={trainees}
           title={"Total Customers"}
           count={customers.length}
           bgColor="card1"
@@ -54,7 +67,7 @@ const CustomersSummary = ({ customers }) => {
           bgColor="card2"
         />
         <InfoBox
-          icon={outOfStockIcon}
+          icon={owed}
           title={"Amount Owed"}
           count={`$${formatNumbers(totalAmountOwed.toFixed(2))}  `}
           bgColor="card3"
@@ -66,17 +79,23 @@ const CustomersSummary = ({ customers }) => {
           bgColor="card4"
         />
         <InfoBox
-          icon={expiredProductsIcon}
+          icon={owingCustomers}
           title={"Owing Customers"}
           count={totalOwingCustomers}
           bgColor="card3"
         />
-        {/* <InfoBox
-          icon={expiredProductsIcon}
-          title={"Expiring Products"}
-          count={expires_in_three_months}
+        <InfoBox
+          icon={trainees}
+          title={"Trainees"}
+          count={customersInTraining}
           bgColor="card5"
-        /> */}
+        />
+        <InfoBox
+          icon={pending}
+          title={"Pending Licenses"}
+          count={pendingLicenses}
+          bgColor="card5"
+        />
       </div>
 
       <button className="button"><Link className="link" to={"/add-customer/"}> <MdAddShoppingCart size={35}/>Add Customer</Link></button>

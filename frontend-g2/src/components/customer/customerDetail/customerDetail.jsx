@@ -117,8 +117,8 @@ const CustomerDetail = () => {
                {displayExpiryDate}
             </p> */}
               </>
-            ): (<p>
-              <b>&gt;&gt;&gt;Not a perishable product</b>
+            ): (<p >
+              <b className="badge">&gt;&gt;&gt;Pending License</b>
             </p>)}
 
             <hr />

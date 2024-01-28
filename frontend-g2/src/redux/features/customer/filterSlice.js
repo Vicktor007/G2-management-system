@@ -26,11 +26,16 @@ const filterSlice = createSlice({
             const customerExpiryDate = new Date(customer.expiry_date);
             return customerExpiryDate < expiryDate && customerExpiryDate >= currentDate;
           });
-        } else if (search.toLowerCase() === "out of stock") {
+        } else if (search.toLowerCase() === "pending") {
           tempCustomers = customers.filter((customer) => {
-            const customerQuantity = Number(customer.quantity);
-            return customerQuantity === 0;
+            const pendingLicense = (customer.production_date);
+            return pendingLicense === "";
           });
+        }else if (search.toLowerCase() === "trainees") {
+            tempCustomers = customers.filter((customer) => {
+              const customerCompletionDate = new Date(customer.date_of_completion);
+              return customerCompletionDate > currentDate;
+            });
         } else {
           tempCustomers = customers.filter((customer) => {
             const customerName = customer.name ? customer.name.toLowerCase() : "";
