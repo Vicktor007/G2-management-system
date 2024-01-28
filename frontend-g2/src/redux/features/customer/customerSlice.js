@@ -10,6 +10,9 @@ const initialState = {
     isSuccess: false,
     isLoading: false,
     message: "",
+    totalStoreValue: 0,
+    totalAmountOwed: 0,
+    totalOwingCustomers: 0,
     category: [],
 };
 
@@ -115,19 +118,67 @@ export const updateACustomerDetails = createAsyncThunk(
     name: "customer",
     initialState,
     reducers: {
+      CALC_STORE_VALUE(state, action) {
+        const customers = action.payload;
+        let totalValue = 0;
+        if (Array.isArray(customers)) {
+          customers.forEach((item) => {
+            let { price } = item;
+            price = parseFloat(price);
+            if (!isNaN(price)) {
+              totalValue += price;
+            }
+          });
+        }
+        state.totalStoreValue = totalValue;
+      },
+    
+      CALC_OWING_CUSTOMERS(state, action) {
+        const customers = action.payload;
+        let owingCustomers = 0;
+        if (Array.isArray(customers)) {
+          customers.forEach((item) => {
+            let { price, amount_paid } = item;
+            price = parseFloat(price);
+            amount_paid = parseFloat(amount_paid);
+            if (price > amount_paid) {
+              owingCustomers += 1;
+            }
+          });
+        }
+        state.totalOwingCustomers = owingCustomers;
+      },
+    
+      CALC_AMOUNT_OWED(state, action) {
+        const customers = action.payload;
+        let totalOwed = 0;
+        if (Array.isArray(customers)) {
+          customers.forEach((item) => {
+            let { price, amount_paid } = item;
+            price = parseFloat(price);
+            amount_paid = parseFloat(amount_paid);
+            if (price > amount_paid) {
+              totalOwed += (price - amount_paid);
+            }
+          });
+        }
+        state.totalAmountOwed = totalOwed;
+      },
+    
       CALC_CATEGORY(state, action) {
-      const customers = action.payload;
-      const array = [];
-      if (Array.isArray(customers)) {
-        customers.map((item) => {
-          const { category } = item;
-          return array.push(category);
-        });
-      }
-      const uniqueCategory = [...new Set(array)];
-      state.category = uniqueCategory;
+        const customers = action.payload;
+        const array = [];
+        if (Array.isArray(customers)) {
+          customers.map((item) => {
+            const { category } = item;
+            return array.push(category);
+          });
+        }
+        const uniqueCategory = [...new Set(array)];
+        state.category = uniqueCategory;
+      },
     },
-  },
+    
     extraReducers: (builder) => {
         builder
           .addCase(createAnewCustomer.pending, (state) => {
@@ -137,7 +188,6 @@ export const updateACustomerDetails = createAsyncThunk(
             state.isLoading = false;
             state.isSuccess = true;
             state.isError = false;
-            // console.log(action.payload);
             state.customers.push(action.payload);
             toast.success("customer added successfully");
           })
@@ -154,7 +204,6 @@ export const updateACustomerDetails = createAsyncThunk(
             state.isLoading = false;
             state.isSuccess = true;
             state.isError = false;
-            // console.log(action.payload);
             state.customers = action.payload;
           })
           .addCase(getAllCustomers.rejected, (state, action) => {
@@ -214,10 +263,15 @@ export const updateACustomerDetails = createAsyncThunk(
     
   });
 
-  export const {CALC_CATEGORY} = customerSlice.actions
+  export const {CALC_CATEGORY, CALC_STORE_VALUE, CALC_AMOUNT_OWED, CALC_OWING_CUSTOMERS} = customerSlice.actions
 
   export const selectIsLoading = (state) => state.customer.isLoading;
   export const selectCustomer = (state) => state.customer.customer;
-  export const selectCategory = (state) => state.product.category;
+  export const selectCategory = (state) => state.customer.category;
+  export const selectTotalStoreValue = (state) => state.customer.totalStoreValue;
+  export const selectTotalAmountOwed = (state) => state.customer.totalAmountOwed;
+  export const selectTotalOwingCustomers = (state) => state.customer.totalOwingCustomers;
 
   export default customerSlice.reducer;
+
+  

@@ -6,20 +6,9 @@ import { BiCategory } from "react-icons/bi";
 import { LuBadgeX } from "react-icons/lu";
 import InfoBox from "../../infoBox/InfoBox";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  CALC_CATEGORY,
-  CALC_EXPIRED_PRODUCTS,
-  CALC_OUTOFSTOCK,
-  CALC_STORE_VALUE,
-  CALC_EXPIRING_IN_THREE_MONTHS,
-  selectCategory,
-  selectExpiredProducts,
-  selectOutOfStock,
-  selectTotalStoreValue,
-  selectThreeMonthsExpiryTracker,
-} from "../../../redux/features/product/productSlice";
 import { Link } from "react-router-dom";
 import { MdAddShoppingCart } from "react-icons/md";
+import { CALC_AMOUNT_OWED, CALC_CATEGORY, CALC_OWING_CUSTOMERS, CALC_STORE_VALUE, selectCategory, selectTotalAmountOwed, selectTotalOwingCustomers, selectTotalStoreValue } from "../../../redux/features/customer/customerSlice";
 
 // Icons
 const earningIcon = <AiFillDollarCircle size={40} color="#fff" />;
@@ -33,21 +22,20 @@ export const formatNumbers = (x) => {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
-const ProductSummary = ({ products }) => {
+const CustomersSummary = ({ customers }) => {
   const dispatch = useDispatch();
-  const totalStoreValue = useSelector(selectTotalStoreValue);
-  const outOfStock = useSelector(selectOutOfStock);
   const category = useSelector(selectCategory);
-  const expired_products = useSelector(selectExpiredProducts);
-  const expires_in_three_months =useSelector(selectThreeMonthsExpiryTracker);
+  const totalStoreValue = useSelector(selectTotalStoreValue);
+  const totalOwingCustomers = useSelector(selectTotalOwingCustomers);
+  const totalAmountOwed = useSelector(selectTotalAmountOwed);
+
 
   useEffect(() => {
-    dispatch(CALC_STORE_VALUE(products));
-    dispatch(CALC_OUTOFSTOCK(products));
-    dispatch(CALC_CATEGORY(products));
-    dispatch(CALC_EXPIRED_PRODUCTS(products));
-    dispatch(CALC_EXPIRING_IN_THREE_MONTHS(products));
-  }, [dispatch, products]);
+    dispatch(CALC_CATEGORY(customers));
+    dispatch(CALC_STORE_VALUE(customers));
+    dispatch(CALC_AMOUNT_OWED(customers));
+    dispatch(CALC_OWING_CUSTOMERS(customers));
+  }, [dispatch, customers]);
 
   return (
     <div className="product-summary">
@@ -55,8 +43,8 @@ const ProductSummary = ({ products }) => {
       <div className="info-summary">
         <InfoBox
           icon={productIcon}
-          title={"Total Products"}
-          count={products.length}
+          title={"Total Customers"}
+          count={customers.length}
           bgColor="card1"
         />
         <InfoBox
@@ -67,33 +55,33 @@ const ProductSummary = ({ products }) => {
         />
         <InfoBox
           icon={outOfStockIcon}
-          title={"Out of Stock"}
-          count={outOfStock}
+          title={"Amount Owed"}
+          count={`$${formatNumbers(totalAmountOwed.toFixed(2))}  `}
           bgColor="card3"
         />
         <InfoBox
           icon={categoryIcon}
           title={"All Categories"}
-          count={category.length}
+          count={category?.length}
           bgColor="card4"
         />
         <InfoBox
           icon={expiredProductsIcon}
-          title={"Expired Products"}
-          count={expired_products}
+          title={"Owing Customers"}
+          count={totalOwingCustomers}
           bgColor="card3"
         />
-        <InfoBox
+        {/* <InfoBox
           icon={expiredProductsIcon}
           title={"Expiring Products"}
           count={expires_in_three_months}
           bgColor="card5"
-        />
+        /> */}
       </div>
 
-      <button className="button"><Link className="link" to={"/add-product/"}> <MdAddShoppingCart size={35}/>Add Product</Link></button>
+      <button className="button"><Link className="link" to={"/add-customer/"}> <MdAddShoppingCart size={35}/>Add Customer</Link></button>
     </div>
   );
 };
 
-export default ProductSummary;
+export default CustomersSummary;

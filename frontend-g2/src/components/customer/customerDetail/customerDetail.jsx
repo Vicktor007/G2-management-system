@@ -152,6 +152,7 @@ const CustomerDetail = () => {
                           
           
           <hr/>
+          
             <p>{customer.details}</p>
             
             <hr />

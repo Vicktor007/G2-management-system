@@ -6,6 +6,7 @@ import useRedirectLoggedOutUser from "../../customHook/useRedirectLoggedOutUser"
 import { selectIsLoggedIn } from "../../redux/features/auth/authSlice";
 import { getAllCustomers } from "../../redux/features/customer/customerSlice";
 import CustomersList from "../../components/customer/productList/CustomersList";
+import CustomersSummary from "../../components/customer/productSummary/CustomersSummary";
 
 
 
@@ -33,7 +34,7 @@ const Dashboard = () => {
 
   return (
     <div className="--pad">
-      {/* <ProductSummary products={products} /> */}
+      <CustomersSummary customers={customers} />
       <CustomersList customers={customers} isLoading={isLoading} />
     </div>
   );
