@@ -1,6 +1,6 @@
 import React from "react";
 import Card from "../../card/Card";
-import "./ProductForm.scss";
+import "./customerForm.scss";
 
 
 const CustomerForm = ({

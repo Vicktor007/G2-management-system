@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { SpinnerImg } from "../../loader/Loader";
-import "./productList.scss";
+import "./customerList.scss";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { AiOutlineEye } from "react-icons/ai";
 import Search from "../../search/Search";
@@ -132,7 +132,7 @@ const CustomersList = ({ customers, isLoading }) => {
                        <td><NavLink to={`/customer-detail/${_id}`}>{name ? shortenText(name, 16) : ''}</NavLink></td>
                        <td>{category}</td>
                        <td>{"$"}{price}</td>
-                       <td className="center">{amount_paid}</td>
+                       <td className="center">{"$"}{amount_paid}</td>
                        <td>{"$"}{price - amount_paid}</td>
                        <td className="icons bgw">
                         <span>

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../components/loader/Loader";
 import axios from "../../axios";
-import CustomerForm from "../../components/customer/productForm/CustomerForm";
+import CustomerForm from "../../components/customer/customerForm/CustomerForm";
 import { createAnewCustomer, selectIsLoading } from "../../redux/features/customer/customerSlice";
 selectIsLoading
 

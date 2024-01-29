@@ -1,12 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import ProductList from "../../components/product/productList/ProductList";
-// import ProductSummary from "../../components/product/productSummary/ProductSummary";
 import useRedirectLoggedOutUser from "../../customHook/useRedirectLoggedOutUser";
 import { selectIsLoggedIn } from "../../redux/features/auth/authSlice";
 import { getAllCustomers } from "../../redux/features/customer/customerSlice";
-import CustomersList from "../../components/customer/productList/CustomersList";
-import CustomersSummary from "../../components/customer/productSummary/CustomersSummary";
+import CustomersList from "../../components/customer/customerList/CustomersList";
+import CustomersSummary from "../../components/customer/customersSummary/CustomersSummary";
 
 
 

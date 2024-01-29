@@ -16,9 +16,9 @@ import About from "./pages/about/About";
 import Contact from "./pages/contact/Contact";
 import EditProfile from "./pages/profile/EditProfile";
 import Dashboard from "./pages/dashboard/Dashboard";
-import AddCustomer from "./pages/addProduct/AddCustomer";
+import AddCustomer from "./pages/addCustomer/AddCustomer";
 import CustomerDetail from "./components/customer/customerDetail/customerDetail";
-import EditCustomer from "./pages/editProduct/EditCustomer";
+import EditCustomer from "./pages/editCustomer/EditCustomer";
 
 axios.defaults.withCredentials = true;
 

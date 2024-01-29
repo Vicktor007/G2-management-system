@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "./ProductSummary.scss";
+import "./CustomerSummary.scss";
 import { AiFillDollarCircle } from "react-icons/ai";
 import { BsCart4, BsCartX } from "react-icons/bs";
 import { BiCategory } from "react-icons/bi";
@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import { RiPassPendingLine } from "react-icons/ri";
 import { FaHandHoldingDollar } from "react-icons/fa6";
 import { TbUsersGroup } from "react-icons/tb";
-import { MdOutlineGroupRemove } from "react-icons/md";
+import { MdOutlineGroupRemove, MdPersonAddAlt1 } from "react-icons/md";
 import { MdAddShoppingCart, MdPendingActions } from "react-icons/md";
 import { CALC_AMOUNT_OWED, CALC_CATEGORY, CALC_CUSTOMERS_IN_TRAINING, CALC_CUSTOMERS_WITH_PENDING_LICENSES, CALC_OWING_CUSTOMERS, CALC_STORE_VALUE, selectCategory, selectPendingLicenses, selectStudentsInTraining, selectTotalAmountOwed, selectTotalOwingCustomers, selectTotalStoreValue } from "../../../redux/features/customer/customerSlice";
 
@@ -98,7 +98,7 @@ const CustomersSummary = ({ customers }) => {
         />
       </div>
 
-      <button className="button"><Link className="link" to={"/add-customer/"}> <MdAddShoppingCart size={35}/>Add Customer</Link></button>
+      <button className="button"><Link className="link" to={"/add-customer/"}> <MdPersonAddAlt1 size={35}/>Add Customer</Link></button>
     </div>
   );
 };

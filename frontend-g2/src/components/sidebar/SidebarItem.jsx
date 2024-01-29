@@ -1,6 +1,7 @@
 import React from "react";
 import { BiLogIn } from "react-icons/bi";
-import {  MdOutlineContactSupport, MdOutlineLocalGroceryStore, MdOutlinePersonAddAlt } from "react-icons/md";
+import {  MdOutlineContactSupport, MdOutlinePersonAddAlt, MdPersonAddAlt1 } from "react-icons/md";
+import { HiMiniUserGroup } from "react-icons/hi2";
 import { CgProfile } from "react-icons/cg";
 import { GoInfo } from "react-icons/go";
 import { NavLink } from "react-router-dom";
@@ -66,14 +67,27 @@ const SidebarItem = ({ isOpen }) => {
             
           </NavLink>
           <NavLink
+            to={`/add-customer/`}
+            className={ activeLink }
+          >
+           <div className="sidebar-item s-parent">
+          <div className="sidebar-title">
+           <span>
+                <MdPersonAddAlt1 className="icon"/>
+                {isOpen && <div> Add Customer</div>}
+             </span>
+         </div>
+        </div>
+          </NavLink>
+          <NavLink
             to={`/dashboard/`}
             className={ activeLink }
           >
            <div className="sidebar-item s-parent">
           <div className="sidebar-title">
            <span>
-                <MdOutlineLocalGroceryStore className="icon"/>
-                {isOpen && <div>Store</div>}
+                <HiMiniUserGroup className="icon"/>
+                {isOpen && <div>Customers</div>}
              </span>
          </div>
         </div>

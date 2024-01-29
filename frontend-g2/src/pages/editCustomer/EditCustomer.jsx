@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import Loader from "../../components/loader/Loader";
-import "./ProductForm.scss";
+import "./CustomerForm.scss";
 import axios from "../../axios"
-import CustomerForm from "../../components/customer/productForm/CustomerForm";
+import CustomerForm from "../../components/customer/customerForm/CustomerForm";
 import { getACustomer, selectCustomer, selectIsLoading, updateACustomerDetails } from "../../redux/features/customer/customerSlice";
 
 
