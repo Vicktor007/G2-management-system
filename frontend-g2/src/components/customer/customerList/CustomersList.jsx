@@ -12,13 +12,16 @@ import { Link, NavLink } from "react-router-dom";
 import moment from 'moment';
 import { deleteACustomer, getAllCustomers } from "../../../redux/features/customer/customerSlice"
 import { FILTER_CUSTOMERS, selectFilteredCustomers } from "../../../redux/features/customer/filterSlice";
+import CustomersSummary from "../customersSummary/CustomersSummary";
 
 
 
 const CustomersList = ({ customers, isLoading }) => {
   const [search, setSearch] = useState("");
   const filteredCustomers = useSelector(selectFilteredCustomers);
-
+  const handleButtonClick = (searchText) => {
+    setSearch(searchText);
+  };
   const dispatch = useDispatch();
 
   const shortenText = (text, n) => {
@@ -75,6 +78,7 @@ const CustomersList = ({ customers, isLoading }) => {
 
   return (
     <div className="product-list">
+      <CustomersSummary customers={customers} handleButtonClick={handleButtonClick}/>
       <hr />
       <div className="table">
         <div className="--flex-between --flex-dir-column">

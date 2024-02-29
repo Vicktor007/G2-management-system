@@ -31,7 +31,7 @@ export const formatNumbers = (x) => {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
-const CustomersSummary = ({ customers }) => {
+const CustomersSummary = ({ customers, handleButtonClick }) => {
   const dispatch = useDispatch();
   const category = useSelector(selectCategory);
   const totalStoreValue = useSelector(selectTotalStoreValue);
@@ -52,12 +52,12 @@ const CustomersSummary = ({ customers }) => {
 
   return (
     <div className="product-summary">
-      <h3 className="--mt">Inventory Stats</h3>
+      <h3 className="--mt">Customer Stats</h3>
       <div className="info-summary">
         <InfoBox
           icon={trainees}
           title={"Total Customers"}
-          count={customers.length}
+          count={customers?.length}
           bgColor="card1"
         />
         <InfoBox
@@ -83,18 +83,24 @@ const CustomersSummary = ({ customers }) => {
           title={"Owing Customers"}
           count={totalOwingCustomers}
           bgColor="card3"
+          searchText="owing"
+          handleButtonClick={handleButtonClick}
         />
         <InfoBox
           icon={trainees}
           title={"Trainees"}
           count={customersInTraining}
           bgColor="card5"
+          searchText="trainees"
+          handleButtonClick={handleButtonClick}
         />
         <InfoBox
           icon={pending}
           title={"Pending Licenses"}
           count={pendingLicenses}
           bgColor="card5"
+          searchText="pending"
+          handleButtonClick={handleButtonClick}
         />
       </div>
 
